@@ -4,7 +4,7 @@ Automatically hides boring posts from your X (Twitter) feed.
 
 ## Default filters
 
-- "what are you building total?"
+- "what are you building today?"
 - "i want to connect with"
 - "let's connect", "looking to connect"
 - "drop your", "tag someone who"
