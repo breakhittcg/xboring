@@ -3,7 +3,13 @@
   "name": "XBoring - anti stupid posts",
   "description": "Automatically hides boring posts from your X feed",
   "version": "1.0",
-  "permissions": ["storage"],
+
+  "permissions": ["storage", "tabs"],
+
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none';"
+  },
+
   "content_scripts": [
     {
       "matches": ["https://twitter.com/*", "https://x.com/*"],
@@ -11,6 +17,7 @@
       "run_at": "document_idle"
     }
   ],
+
   "action": {
     "default_popup": "popup.html",
     "default_icon": {

@@ -5,15 +5,15 @@
   <title>XBoring</title>
   <style>
     :root {
-      --bg: #0c0c0c;
+      --bg:   #0c0c0c;
       --card: #141414;
       --line: #222;
       --line2: #2e2e2e;
-	  --blue: #1d9bf0;
+      --blue: #1d9bf0;
       --text: #f2f2f2;
-      --mid: #999;
-      --dim: #e7e9ea;
-      --red: #ff5252;
+      --mid:  #999;
+      --dim:  #e7e9ea;
+      --red:  #ff5252;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -45,19 +45,10 @@
       width: 26px;
       height: 26px;
       border-radius: 6px;
-      background: var(--blue);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .logo-icon svg {
-      width: 14px;
-      height: 14px;
+      object-fit: cover;
     }
 
     .logo-name {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 13px;
       font-weight: 600;
       letter-spacing: 0.08em;
@@ -68,9 +59,8 @@
     .toggle-wrap { display: flex; align-items: center; gap: 6px; }
 
     .toggle-label {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 12px;
-	  font-weight: 600;
+      font-weight: 600;
       color: var(--dim);
       letter-spacing: 0.06em;
       transition: color 0.2s;
@@ -89,26 +79,21 @@
       position: absolute;
       inset: 0;
       background: #71767b;
-
       border-radius: 9px;
-      transition: all 0.18s;
+      transition: background 0.18s;
     }
     .pill-thumb {
       position: absolute;
-      top: 1px; left: 0px;
-      width: 16px; height: 16px;
+      top: 1px;
+      left: 0;
+      width: 16px;
+      height: 16px;
       border-radius: 50%;
       background: var(--dim);
-      transition: all 0.2s cubic-bezier(.4,0,.2,1);
+      transition: transform 0.2s cubic-bezier(.4,0,.2,1), background 0.2s;
     }
-    .pill input:checked ~ .pill-track {
-      background: var(--blue);
-
-    }
-    .pill input:checked ~ .pill-thumb {
-      transform: translateX(16px);
-      background: #fff;
-    }
+    .pill input:checked ~ .pill-track { background: var(--blue); }
+    .pill input:checked ~ .pill-thumb { transform: translateX(16px); background: #fff; }
 
     /* ── STAT ── */
     .stat {
@@ -117,13 +102,9 @@
       border: 1px solid var(--line);
       border-radius: 10px;
       padding: 12px 14px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
     }
 
     .stat-label {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 12px;
       letter-spacing: 0.14em;
       text-transform: uppercase;
@@ -132,7 +113,6 @@
     }
 
     .stat-num {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 36px;
       font-weight: 600;
       color: var(--blue);
@@ -140,41 +120,47 @@
       letter-spacing: -0.03em;
     }
 
-    .stat-since {
-      font-size: 10px;
-      color: var(--dim);
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      text-align: right;
-      line-height: 1.4;
+    /* ── TABS ── */
+    .tabs {
+      display: flex;
+      margin: 0 16px 8px;
+      border-bottom: 1px solid var(--line);
     }
 
-    /* ── FILTERS ── */
-    .filters-header {
-      padding: 0 16px;
+    .tab-btn {
+      flex: 1;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      margin-bottom: 7px;
-    }
-
-    .filters-label {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--dim);
-    }
-
-    .filters-count {
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 11px;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      padding: 6px 12px;
+      font-size: 14px;
+      font-weight: 500;
       color: var(--mid);
-      background: #1a1a1a;
-      border: 1px solid var(--line2);
-      border-radius: 3px;
-      padding: 2px 5px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: color 0.15s, border-color 0.15s;
     }
+    .tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
 
+    .tab-count {
+      font-size: 12px;
+      background: var(--line2);
+      border-radius: 3px;
+      padding: 1px 5px;
+      color: var(--mid);
+    }
+    .tab-btn.active .tab-count { background: var(--blue); color: #fff; }
+
+    /* ── PANELS ── */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── FILTER LIST ── */
     .filters-list {
       margin: 0 16px;
       border: 1px solid var(--line);
@@ -193,31 +179,28 @@
       padding: 7px 10px;
       border-bottom: 1px solid var(--line);
       gap: 8px;
+      animation: pop 0.15s ease;
       transition: background 0.12s;
     }
-
     .filter-row:last-child { border-bottom: none; }
     .filter-row:hover { background: #181818; }
 
-    .filter-row:first-child { animation: none; }
-    .filter-row { animation: pop 0.15s ease; }
-
     @keyframes pop {
       from { opacity: 0; }
-      to { opacity: 1; }
+      to   { opacity: 1; }
     }
 
     .filter-pip {
-      width: 4px; height: 4px;
+      width: 4px;
+      height: 4px;
       border-radius: 50%;
-      background: var(--green);
+      background: var(--blue);
       opacity: 0.4;
       flex-shrink: 0;
     }
 
     .filter-text {
       flex: 1;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
       font-size: 12px;
       color: var(--mid);
       white-space: nowrap;
@@ -234,10 +217,17 @@
       line-height: 1;
       padding: 2px 4px;
       border-radius: 3px;
-      transition: all 0.12s;
+      transition: color 0.12s, background 0.12s;
       flex-shrink: 0;
     }
     .filter-del:hover { color: var(--red); background: rgba(255,82,82,0.08); }
+
+    .empty-state {
+      padding: 18px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--mid);
+    }
 
     /* ── ADD ── */
     .add-wrap {
@@ -246,102 +236,6 @@
       gap: 6px;
     }
 
-    .add-input {
-      flex: 1;
-      background: #71767b;
-      border: 1px solid var(--line);
-      border-radius: 7px;
-      padding: 7px 10px;
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 11px;
-      outline: none;
-      transition: border-color 0.15s;
-    }
-    .add-input:focus { border-color: var(--green); }
-    .add-input::placeholder { color: var(--dim); }
-
-    .add-btn {
-      background: var(--blue);
-      border: none;
-      border-radius: 7px;
-      padding: 7px 11px;
-      color: #e7e9ea;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: opacity 0.12s, transform 0.1s;
-    }
-    .add-btn:hover { opacity: 0.85; }
-    .add-btn:active { transform: scale(0.97); }
-
-    /* ── FOOTER ── */
-    .footer {
-      margin: 10px 16px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-    }
-
-    .reset-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 10px;
-      color: var(--dim);
-      letter-spacing: 0.04em;
-      padding: 4px 0;
-      transition: color 0.12s;
-    }
-    .reset-btn:hover { color: var(--red); }
-
-    /* ── TABS ── */
-    .tabs {
-      display: flex;
-      margin: 0 16px 8px;
-	 
-      border-bottom: 1px solid var(--line);
-    }
-    .tab-btn {
-      background: none;
-      border: none;
-	  flex: 1;
-	  justify-content: center;
-      text-align: center;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      padding: 6px 12px;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--mid);
-      cursor: pointer;
-      letter-spacing: 0.04em;
-      transition: all 0.15s;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); }
-    .tab-count {
-      font-size: 12px;
-      background: var(--line2);
-      border-radius: 3px;
-      padding: 1px 5px;
-      color: var(--mid);
-    }
-    .tab-btn.active .tab-count { background: var(--blue); color: #fff; }
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
-    .empty-state {
-      padding: 18px;
-      text-align: center;
-      font-size: 11px;
-      color: var(--mid);
-    }
     .add-prefix {
       display: flex;
       align-items: center;
@@ -354,62 +248,149 @@
       color: var(--text);
       font-weight: 600;
     }
+
+    .add-input {
+      flex: 1;
+      background: #71767b;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 7px 10px;
+      color: var(--text);
+      font-size: 11px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
     .add-input.with-prefix {
       border-radius: 0 7px 7px 0;
       border-left: none;
     }
+    .add-input:focus { border-color: var(--blue); }
+    .add-input::placeholder { color: var(--dim); }
+
+    .add-btn {
+      background: var(--blue);
+      border: none;
+      border-radius: 7px;
+      padding: 7px 11px;
+      color: #e7e9ea;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.12s, transform 0.1s;
+    }
+    .add-btn:hover  { opacity: 0.85; }
+    .add-btn:active { transform: scale(0.97); }
+
+    /* ── FOOTER ── */
+    .footer {
+      margin: 10px 16px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .reset-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 10px;
+      color: var(--dim);
+      letter-spacing: 0.04em;
+      padding: 4px 0;
+      transition: color 0.12s;
+    }
+    .reset-btn:hover { color: var(--red); }
+
+    /* ── RESET CONFIRM ── */
+    /* [FIX] Confirmation inline — remplace window.confirm() bloquable par Chrome */
+    .confirm-wrap {
+      display: none;
+      align-items: center;
+      gap: 6px;
+    }
+    .confirm-wrap.visible { display: flex; }
+
+    .confirm-label {
+      font-size: 10px;
+      color: var(--red);
+      letter-spacing: 0.04em;
+    }
+
+    .confirm-yes, .confirm-no {
+      background: none;
+      border: 1px solid currentColor;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 7px;
+      transition: opacity 0.12s;
+    }
+    .confirm-yes { color: var(--red); }
+    .confirm-no  { color: var(--mid); }
+    .confirm-yes:hover, .confirm-no:hover { opacity: 0.7; }
   </style>
 </head>
 <body>
 
-  <div class="header">
+  <header class="header">
     <div class="logo">
-<img src="icon128.png" style="width:26px;height:26px;border-radius:6px;object-fit:cover;">
+      <img class="logo-icon" src="icon128.png" alt="XBoring logo" width="26" height="26">
       <span class="logo-name">XBORING</span>
     </div>
     <div class="toggle-wrap">
-      <span class="toggle-label on" id="toggle-label">ON</span>
-      <label class="pill">
+      <span class="toggle-label on" id="toggle-label" aria-live="polite">ON</span>
+      <label class="pill" aria-label="Enable filtering">
         <input type="checkbox" id="main-toggle" checked>
         <div class="pill-track"></div>
         <div class="pill-thumb"></div>
       </label>
     </div>
+  </header>
+
+  <div class="stat" aria-label="Stats">
+    <div class="stat-label">Boring posts hidden</div>
+    <div class="stat-num" id="hidden-count">0</div>
   </div>
 
-  <div class="stat">
-    <div>
-      <div class="stat-label">Boring Posts hidden</div>
-      <div class="stat-num" id="hidden-count">0</div>
-    </div>
-
+  <div class="tabs" role="tablist">
+    <button class="tab-btn active" id="tab-keywords" role="tab" aria-selected="true" aria-controls="panel-keywords">
+      Keywords <span class="tab-count" id="count-keywords">0</span>
+    </button>
+    <button class="tab-btn" id="tab-accounts" role="tab" aria-selected="false" aria-controls="panel-accounts">
+      Accounts <span class="tab-count" id="count-accounts">0</span>
+    </button>
   </div>
 
-  <div class="tabs">
-    <button class="tab-btn active" id="tab-keywords">Keywords <span class="tab-count" id="count-keywords">0</span></button>
-    <button class="tab-btn" id="tab-accounts">Accounts <span class="tab-count" id="count-accounts">0</span></button>
-  </div>
-
-  <div class="tab-panel active" id="panel-keywords">
+  <div class="tab-panel active" id="panel-keywords" role="tabpanel" aria-labelledby="tab-keywords">
     <div class="filters-list" id="list-keywords"></div>
     <div class="add-wrap">
-      <input class="add-input" type="text" id="input-keywords" placeholder="keyword or phrase…">
+      <input class="add-input" type="text" id="input-keywords"
+             placeholder="keyword or phrase…" maxlength="200" autocomplete="off">
       <button class="add-btn" id="add-keywords">+ Add</button>
     </div>
   </div>
 
-  <div class="tab-panel" id="panel-accounts">
+  <div class="tab-panel" id="panel-accounts" role="tabpanel" aria-labelledby="tab-accounts">
     <div class="filters-list" id="list-accounts"></div>
     <div class="add-wrap">
-      <div class="add-prefix">@</div>
-      <input class="add-input with-prefix" type="text" id="input-accounts" placeholder="username">
+      <div class="add-prefix" aria-hidden="true">@</div>
+      <input class="add-input with-prefix" type="text" id="input-accounts"
+             placeholder="username" maxlength="50" autocomplete="off"
+             aria-label="Account username">
       <button class="add-btn" id="add-accounts">+ Add</button>
     </div>
   </div>
 
-  <div class="footer">
+  <footer class="footer">
     <button class="reset-btn" id="reset-btn">↺ reset to defaults</button>
-  </div>
+    <div class="confirm-wrap" id="confirm-wrap" role="alert" aria-live="polite">
+      <span class="confirm-label">Sure?</span>
+      <button class="confirm-yes" id="confirm-yes">Yes</button>
+      <button class="confirm-no"  id="confirm-no">No</button>
+    </div>
+  </footer>
 
   <script src="popup.js"></script>
 </body>
